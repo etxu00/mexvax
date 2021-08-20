@@ -1,0 +1,747 @@
+<!DOCTYPE html>
+<html lang="es-419">
+  <head>
+    <title>MexVax</title>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="description"
+      content="Hotel en Cancun, Hotel en Puerto Vallarta, Hotel en Acapulco, Hotel en Riviera Maya, Hotel en Mexico, Hotel en Ixtapa, Hotel en Los Cabos, Hotel en Playa del Carmen">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="shortcut icon" href="https://www.mexvax.com/favicon.ico" />
+    <!-- Bootstrap core CSS -->
+    <link rel="stylesheet" href="css/bootstrap.min.css">
+    <link href="fontawesome/css/all.css" rel="stylesheet">
+    <!--load all styles -->
+    <link rel="stylesheet" href="/css/styles.css">
+    <link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
+    <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/animate.css/3.2.0/animate.min.css">
+    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.7.1/dist/leaflet.css" integrity="sha512-xodZBNTC5n17Xt2atTPuE1HxjVMSvLVW9ocqUKLsCC5CXdbqCmblAshOMAS6/keqq/sMZMZ19scR4PsZChSR7A==" crossorigin="" />
+    <script src="/js/jquery-3.4.1.js"></script>
+    <script src="/js/popper.min.js"></script>
+    <script src="/js/bootstrap.min.js"></script>
+    <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
+    <script src="https://unpkg.com/leaflet@1.7.1/dist/leaflet.js" integrity="sha512-XQoYMqMTK8LvdxXYG3nZ448hOEQiglfqkJs1NOQV44cWnUrBc8PkAOcXy20w0vlaXaVUearIOBhiXZ5V3ynxwA==" crossorigin=""></script>
+    <script src="/controllers/main_controller.js" type="text/javascript"></script>
+    <script src="/fontawesome/js/all.js" defer></script>
+    <script src="/js/buscar.js" type="text/javascript"></script>
+    <script src="//code.jivosite.com/widget/deOxFuH6Fx" async></script>
+    <style>
+      :root {
+        --mexvax: #d5572b;
+      }
+      img {
+        max-width: 100%;
+      }
+      .bg_photo {
+        background: url(https://musing-cartwright.74-208-30-206.plesk.page/img/playa.jpg);
+        background-size: 150%;
+        background-position: 58% 42%;
+        animation: animation 120s linear;
+        position: relative;
+      }
+      .bg_photo:before {
+        background: linear-gradient(00deg, #000000c9, transparent);
+        content: '';
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        z-index: 0;
+      }
+      .card.transparent {
+        background-color: transparent;
+        border-color: transparent;
+      }
+      @keyframes animation {
+        0% {
+          background-position: 0% 42%;
+        }
+        100% {
+          background-position: 100% 42%;
+        }
+      }
+      .card.photos {
+        position: relative;
+        overflow: hidden;
+      }
+      .card.photos img {
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        width: 100%;
+        transform: translate3d(-50%, -50%, 0);
+        z-index: 0;
+      }
+      .card.photos *:not(img) {
+        z-index: 100;
+      }
+      .card.photos:before {
+        content: '';
+        position: absolute;
+        top: 0;
+        bottom: 0;
+        left: 0;
+        right: 0;
+        background: linear-gradient(to right, var(--color) 0%, transparent 58%);
+        display: block;
+        z-index: 1;
+      }
+      footer a:hover,
+      footer a:link,
+      footer a {
+        color: var(--mexvax);
+        text-decoration: none;
+      }
+    </style>
+  </head>
+  <body>
+    <header>
+      <div class="container">
+        <nav class="navbar navbar-expand-lg navbar-light bg-light">
+          <a class="navbar-brand" href="/">
+            <img src="/img/logo.png" alt="MexVax logo" width="126">
+          </a>
+          <button class="navbar-toggler" type="button"
+            data-toggle="collapse" data-target="#navbarSupportedContent"
+            aria-controls="navbarSupportedContent"
+            aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+          </button>
+          <div class="collapse navbar-collapse"
+            id="navbarSupportedContent">
+            <ul class="navbar-nav mr-auto">
+              <li class="nav-item dropdown">
+                <a class="nav-link dropdown-toggle" href="#"
+                  id="navbarDropdown" role="button"
+                  data-toggle="dropdown"
+                  aria-haspopup="true" aria-expanded="false">
+                  Más opciones de pago
+                </a>
+                <div class="dropdown-menu"
+                  aria-labelledby="navbarDropdown">
+                  <a class="dropdown-item" href="#">
+                    <img src="https://img.icons8.com/material-sharp/18/d45226/fighter-jet.png"/>
+                    <span>Hospedaje</span>
+                  </a>
+                  <a class="dropdown-item" href="#">
+                    <img class="mr-1"
+                      src="https://img.icons8.com/fluency-systems-filled/18/d45226/hotel-check-in.png" />
+                    <span>Vuelos</span>
+                  </a>
+                  <a class="dropdown-item" href="#">
+                    <img class="mr-1"
+                      src="https://img.icons8.com/material-rounded/18/d45226/car.png" />
+                    <span>Autos</span>
+                  </a>
+                  <a class="dropdown-item" href="#">
+                    <img class="mr-1"
+                      src="https://img.icons8.com/material-rounded/18/d45226/cardboard-box.png"/>
+                    <span>Paquetes</span>
+                  </a>
+                  <a class="dropdown-item" href="#">
+                    <img class="mr-1"
+                      src="https://img.icons8.com/fluency-systems-filled/18/d45226/two-tickets.png"/>
+                    <span>Actividades</span>
+                  </a>
+                  <a class="dropdown-item" href="#">
+                    <span>Ofertas</span>
+                  </a>
+                  <!-- Solo mostrar en tablet y movil -->
+                  <div class="d-none d-sm-block d-md-block">
+                    <a class="dropdown-item" href="#">App</a>
+                  </div>
+                </div>
+              </li>
+            </ul>
+            <div class="form-inline my-2 my-lg-0">
+              <a class="btn btn-link" href="#" role="button"
+                data-toggle="tooltip" data-placement="left" title="Tooltip on top">
+                <img src="https://img.icons8.com/color/48/000000/usa.png" width="18" />
+              </a>
+              <a class="btn btn-link" href="#" role="button">Iniciar sesión</a>
+              <a class="btn btn-primary" href="#" role="button">Registrate</a>
+            </div>
+          </div>
+        </nav>
+      </div>
+    </header>
+    <main role="main" >
+      <div class="bg-dark bg_photo">
+        <div class="container py-4">
+          <div class="card shadow-lg">
+            <div class="card-body">
+              <ul class="nav nav-tabs" id="myTab" role="tablist">
+                <li class="nav-item">
+                  <a class="h3 nav-link active" id="home-tab" href="#home"
+                    data-toggle="tab" role="tab" aria-controls="home"
+                    aria-selected="true">Reserva tu hotel</a>
+                </li>
+                <li class="nav-item">
+                  <a class="h3 nav-link" id="profile-tab" href="#profile"
+                    data-toggle="tab" role="tab" aria-controls="profile"
+                    aria-selected="false">Vuelos</a>
+                </li>
+                <li class="nav-item">
+                  <a class="h3 nav-link" id="contact-tab" href="#contact"
+                    data-toggle="tab" role="tab" aria-controls="contact"
+                    aria-selected="false">Autos</a>
+                </li>
+              </ul>
+              <div class="tab-content" id="myTabContent">
+                <div class="tab-pane fade show active" id="home"
+                  role="tabpanel" aria-labelledby="home-tab">
+                  <form id="search_form" name="search_form">
+                    <input type="hidden" name="active_pag" id="active_pag" value="1">
+                    <input type="hidden" name="origin" id="origin" value="mex">
+                    <input type="hidden" name="current_currency" id="current_currency">
+                    <input type="hidden" name="r_1" id="r_1">
+                    <input type="hidden" name="r_2" id="r_2">
+                    <input type="hidden" name="r_3" id="r_3">
+                    <input type="hidden" name="r_4" id="r_4">
+                    <input type="hidden" name="r_5" id="r_5">
+                    <input type="hidden" name="pr" id="pr">
+                    <input type="hidden" name="current_hid" id="current_hid">
+                    <input type="hidden" name="current_s" id="current_s">
+                    <input type="hidden" name="search_hotel_data" id="search_hotel_data">
+                    <input type="hidden" name="current_search" id="current_search">
+                    <input type="hidden" name="typeof_search" id="typeof_search">
+                    <div class="row">
+                      <div class="col-12 col-mb-12 col-sm-6">
+                        <!-- col-6 -->
+                        <label for="form-control" id="destino" name="destino">Destino/hotel</label>
+                        <input type="text" class="form-control" placeholder="" id="des_hotel" name="des_hotel">
+                        <input type="hidden" name="id_des" id="id_des">
+                        <div id="destination" class="input-group-addon">
+                  
+                        </div>
+                        <div id="hotels" class="input-group-addon">
+                  
+                        </div>
+                      </div>
+                      <div class="col-12 col-mb-12 col-sm-3">
+                        <!-- col-3 -->
+                        <label for="form-control">Llegada</label>
+                        <div class="input-group date" data-provide="datepicker">
+                          <input type="text" id="des_arrive" name="des_arrive" class="form-control datepicker_controller">
+                          <div class="input-group-addon">
+                            <span class="glyphicon glyphicon-th"></span>
+                          </div>
+                        </div>
+                      </div>
+                      <div class="col-12 col-mb-12 col-sm-3 ">
+                        <!-- col-3 -->
+                        <label for="form-control">Salida</label>
+                        <div class="input-group date" data-provide="datepicker">
+                          <input type="text" id="des_depar" name="des_depar" class="form-control datepicker_controller">
+                          <div class="input-group-addon">
+                            <span class="glyphicon glyphicon-th"></span>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                    <div class="row" style="margin-top: 2%;">
+                      <div id="room_container" class="col-12">
+                        <div class="row">
+                          <div class="col-12 col-mb-12 col-sm-2">
+                            <label for="form-control" id="bed" name="bed">Habitaciones</label>
+                            <select class="form-control" id="select_bed" name="select_bed">
+                              <option>1</option>
+                              <option>2</option>
+                              <option>3</option>
+                              <option>4</option>
+                              <option>5</option>
+                            </select>
+                          </div>
+                          <div class="col-6 col-mb-6 col-sm-2">
+                            <label for="form-control" id="adult" name="adult">Adultos</label>
+                            <select class="form-control" id="select_adul" name="select_adul">
+                              <option>1</option>
+                              <option selected="selected">2</option>
+                              <option>3</option>
+                              <option>4</option>
+                              <option>5</option>
+                            </select>
+                          </div>
+                          <div class="col-6 col-mb-6 col-sm-2">
+                            <label for="form-control" id="minor" name="minor">Menores</label>
+                            <select class="form-control" id="select_minor" name="select_minor">
+                              <option>0</option>
+                              <option>1</option>
+                              <option>2</option>
+                              <option>3</option>
+                              <option>4</option>
+                            </select>
+                          </div>
+                          <div id="minor_age1" class="col-2" style="display: none;">
+                            <label for="form-control" id="minor_age_1" name="minor_age_1">Edad #1</label>
+                            <select class="form-control" id="select_minor_age1" name="select_minor_age1">
+                              <option value="0">
+                                < 1 </option>
+                              <option>1</option>
+                              <option>2</option>
+                              <option>3</option>
+                              <option>4</option>
+                              <option>5</option>
+                              <option>6</option>
+                              <option>7</option>
+                              <option>8</option>
+                              <option>9</option>
+                              <option>10</option>
+                              <option>11</option>
+                              <option>12</option>
+                              <option>13</option>
+                              <option>14</option>
+                              <option>15</option>
+                              <option>16</option>
+                              <option>17</option>
+                            </select>
+                          </div>
+                          <div id="minor_age2" class="col-2" style="display: none;">
+                            <label for="form-control" id="minor_age_2" name="minor_age_2">Edad #1</label>
+                            <select class="form-control" id="select_minor_age2" name="select_minor_age2">
+                              <option value="0">
+                                < 1 </option>
+                              <option>1</option>
+                              <option>2</option>
+                              <option>3</option>
+                              <option>4</option>
+                              <option>5</option>
+                              <option>6</option>
+                              <option>7</option>
+                              <option>8</option>
+                              <option>9</option>
+                              <option>10</option>
+                              <option>11</option>
+                              <option>12</option>
+                              <option>13</option>
+                              <option>14</option>
+                              <option>15</option>
+                              <option>16</option>
+                              <option>17</option>
+                            </select>
+                          </div>
+                          <div id="minor_age3" class="col-2" style="display: none;">
+                            <label for="form-control" id="minor_age_3" name="minor_age_3">Edad #1</label>
+                            <select class="form-control" id="select_minor_age3" name="select_minor_age3">
+                              <option value="0">
+                                < 1 </option>
+                              <option>1</option>
+                              <option>2</option>
+                              <option>3</option>
+                              <option>4</option>
+                              <option>5</option>
+                              <option>6</option>
+                              <option>7</option>
+                              <option>8</option>
+                              <option>9</option>
+                              <option>10</option>
+                              <option>11</option>
+                              <option>12</option>
+                              <option>13</option>
+                              <option>14</option>
+                              <option>15</option>
+                              <option>16</option>
+                              <option>17</option>
+                            </select>
+                          </div>
+                          <div id="minor_age4" class="col-2" style="display: none;">
+                            <label for="form-control" id="minor_age_4" name="minor_age_4">Edad #1</label>
+                            <select class="form-control" id="select_minor_age4" name="select_minor_age4">
+                              <option value="0">
+                                < 1 </option>
+                              <option>1</option>
+                              <option>2</option>
+                              <option>3</option>
+                              <option>4</option>
+                              <option>5</option>
+                              <option>6</option>
+                              <option>7</option>
+                              <option>8</option>
+                              <option>9</option>
+                              <option>10</option>
+                              <option>11</option>
+                              <option>12</option>
+                              <option>13</option>
+                              <option>14</option>
+                              <option>15</option>
+                              <option>16</option>
+                              <option>17</option>
+                            </select>
+                          </div>
+                        </div>
+                        <div id="r2" class="row" style="display: none;">
+                  
+                          <div class="col-2">
+                            <label for="form-control" id="adult2" name="adult2">Adultos</label>
+                            <select class="form-control" id="select_adul2" name="select_adul2">
+                              <option>1</option>
+                              <option>2</option>
+                              <option>3</option>
+                              <option>4</option>
+                              <option>5</option>
+                            </select>
+                          </div>
+                          <div class="col-2">
+                            <label for="form-control" id="minor2" name="minor2">Menores</label>
+                            <select class="form-control" id="select_minor2" name="select_minor2">
+                              <option>0</option>
+                              <option>1</option>
+                              <option>2</option>
+                              <option>3</option>
+                              <option>4</option>
+                            </select>
+                          </div>
+                          <div id="minor_age1_minor2" class="col-2" style="display: none;">
+                            <label for="form-control" id="minor_age_1_m2" name="minor_age_1_m2">Edad #1</label>
+                            <select class="form-control" id="select_minor_age1_m2" name="select_minor_age1_m2">
+                              <option>
+                                < 1 </option>
+                              <option>1</option>
+                              <option>2</option>
+                              <option>3</option>
+                              <option>4</option>
+                              <option>5</option>
+                              <option>6</option>
+                              <option>7</option>
+                              <option>8</option>
+                              <option>9</option>
+                              <option>10</option>
+                              <option>11</option>
+                              <option>12</option>
+                              <option>13</option>
+                              <option>14</option>
+                              <option>15</option>
+                              <option>16</option>
+                              <option>17</option>
+                            </select>
+                          </div>
+                          <div id="minor_age2_minor2" class="col-2" style="display: none;">
+                            <label for="form-control" id="minor_age_2_m2" name="minor_age_2_m2">Edad #2</label>
+                            <select class="form-control" id="select_minor_age2_m2" name="select_minor_age2_m2">
+                              <option>
+                                < 1 </option>
+                              <option>1</option>
+                              <option>2</option>
+                              <option>3</option>
+                              <option>4</option>
+                              <option>5</option>
+                              <option>6</option>
+                              <option>7</option>
+                              <option>8</option>
+                              <option>9</option>
+                              <option>10</option>
+                              <option>11</option>
+                              <option>12</option>
+                              <option>13</option>
+                              <option>14</option>
+                              <option>15</option>
+                              <option>16</option>
+                              <option>17</option>
+                            </select>
+                          </div>
+                          <div id="minor_age3_minor2" class="col-2" style="display: none;">
+                            <label for="form-control" id="minor_age_3_m2" name="minor_age_3_m2">Edad #2</label>
+                            <select class="form-control" id="select_minor_age3_m2" name="select_minor_age3_m2">
+                              <option>
+                                < 1 </option>
+                              <option>1</option>
+                              <option>2</option>
+                              <option>3</option>
+                              <option>4</option>
+                              <option>5</option>
+                              <option>6</option>
+                              <option>7</option>
+                              <option>8</option>
+                              <option>9</option>
+                              <option>10</option>
+                              <option>11</option>
+                              <option>12</option>
+                              <option>13</option>
+                              <option>14</option>
+                              <option>15</option>
+                              <option>16</option>
+                              <option>17</option>
+                            </select>
+                          </div>
+                          <div id="minor_age4_minor2" class="col-2" style="display: none;">
+                            <label for="form-control" id="minor_age_4_m2" name="minor_age_4_m2">Edad #2</label>
+                            <select class="form-control" id="select_minor_age4_m2" name="select_minor_age4_m2">
+                              <option>
+                                < 1 </option>
+                              <option>1</option>
+                              <option>2</option>
+                              <option>3</option>
+                              <option>4</option>
+                              <option>5</option>
+                              <option>6</option>
+                              <option>7</option>
+                              <option>8</option>
+                              <option>9</option>
+                              <option>10</option>
+                              <option>11</option>
+                              <option>12</option>
+                              <option>13</option>
+                              <option>14</option>
+                              <option>15</option>
+                              <option>16</option>
+                              <option>17</option>
+                            </select>
+                          </div>
+                        </div>
+                  
+                        <div id="r3" class="row" style="display: none;">
+                  
+                          <div class="col-3">
+                            <label for="form-control" id="adult3" name="adult3">Adultos</label>
+                            <select class="form-control" id="select_adul3" name="select_adul3">
+                              <option>1</option>
+                              <option>2</option>
+                              <option>3</option>
+                              <option>4</option>
+                              <option>5</option>
+                            </select>
+                          </div>
+                          <div class="col-3">
+                            <label for="form-control" id="minor3" name="minor3">Menores</label>
+                            <select class="form-control" id="select_minor3" name="select_minor3">
+                              <option>0</option>
+                              <option>1</option>
+                              <option>2</option>
+                              <option>3</option>
+                              <option>4</option>
+                            </select>
+                          </div>
+                        </div>
+                  
+                        <div id="r4" class="row" style="display: none;">
+                  
+                          <div class="col-3">
+                            <label for="form-control" id="adult4" name="adult4">Adultos</label>
+                            <select class="form-control" id="select_adul4" name="select_adul4">
+                              <option>1</option>
+                              <option>2</option>
+                              <option>3</option>
+                              <option>4</option>
+                              <option>5</option>
+                            </select>
+                          </div>
+                          <div class="col-3">
+                            <label for="form-control" id="minor4" name="minor4">Menores</label>
+                            <select class="form-control" id="select_minor4" name="select_minor4">
+                              <option>0</option>
+                              <option>1</option>
+                              <option>2</option>
+                              <option>3</option>
+                              <option>4</option>
+                            </select>
+                          </div>
+                        </div>
+                  
+                        <div id="r5" class="row" style="display: none;">
+                  
+                          <div class="col-3">
+                            <label for="form-control" id="adult5" name="adult5">Adultos</label>
+                            <select class="form-control" id="select_adul5" name="select_adul5">
+                              <option>1</option>
+                              <option>2</option>
+                              <option>3</option>
+                              <option>4</option>
+                              <option>5</option>
+                            </select>
+                          </div>
+                          <div class="col-3">
+                            <label for="form-control" id="minor5" name="minor5">Menores</label>
+                            <select class="form-control" id="select_minor5" name="select_minor5">
+                              <option>0</option>
+                              <option>1</option>
+                              <option>2</option>
+                              <option>3</option>
+                              <option>4</option>
+                            </select>
+                          </div>
+                        </div>
+                  
+                      </div>
+                    </div>
+                    <div id="opciones_container" style="display: none;">
+                      <h5 style="margin-top: 2%;">Opciones adicionales</h5>
+                      <div class="row">
+                        <div class="col-12 col-mb-12 col-sm-6">
+                          <label for="form-control" id="ad_htl">Hotel</label>
+                          <input type="text" class="form-control" placeholder="Selecciona tu hotel" id="slt_ad_htl" name="slt_ad_htl">
+                          <div id="hotels_data" class="input-group-addon">
+                  
+                          </div>
+                        </div>
+                        <div class="col-12 col-mb-12 col-sm-3">
+                          <label for="form-control" id="slc_cat" name="slc_cat">Categoría</label>
+                          <select class="form-control" id="select_cat" name="select_cat">
+                            <option value="0">Todas</option>
+                            <option value="5">5 estrellas o más</option>
+                            <option value="4">4 estrellas o más</option>
+                            <option value="3">3 estrellas o menos</option>
+                            <option value="2">Boutique</option>
+                          </select>
+                        </div>
+                        <div class="col-12 col-mb-12 col-sm-3">
+                          <label for="form-control" id="slc_food" name="slc_food">Plan de alimentos</label>
+                          <select class="form-control" id="select_food" name="select_food">
+                            <option value="1">Todos</option>
+                            <option value="2">Solo habitación</option>
+                            <option value="3">Desayuno incluido</option>
+                            <option value="4">Todo incluido</option>
+                          </select>
+                        </div>
+                      </div>
+                    </div>
+                    <button type="button" class="btn btn-secondary" id="btn_search"
+                      style="margin-top: 3%; background-color: #FF4000; border-color: #FF4000; margin-bottom: 2%;">
+                      Buscar
+                    </button>
+                  </form>
+                </div>
+                <div class="tab-pane fade" id="profile" role="tabpanel" aria-labelledby="profile-tab">
+                  Lorem ipsum dolor sit amet consectetur adipisicing elit. Obcaecati, dolorem. Distinctio, dolorum? Odit et possimus odio enim eos doloremque nihil eveniet ratione optio, laboriosam perspiciatis placeat animi sed soluta cum.
+                </div>
+                <div class="tab-pane fade" id="contact" role="tabpanel" aria-labelledby="contact-tab">
+                  Lorem ipsum dolor sit amet consectetur adipisicing elit. Obcaecati, dolorem. Distinctio, dolorum? Odit et possimus odio enim eos doloremque nihil eveniet ratione optio, laboriosam perspiciatis placeat animi sed soluta cum.
+                </div>
+              </div>
+            </div>
+          </div>
+          <!-- INICIO: Sección de noticia -->
+          <div class="card transparent">
+            <div class="card-body text-white">
+              <h5 class="card-title">Viajemos para sanar juntos</h5>
+              <p class="card-text">
+                Al reservar con la app de Expedia, nos ayudarás a llevar una vacuna contra el
+                COVID-19 a una persona que la necesite en algún lugar del mundo. Cada viaje es
+                una inyección de esperanza para el mundo.
+              </p>
+              <a href="#" class="btn btn btn-light">Más información</a>
+            </div>
+          </div>
+          <!-- FIN: Sección de noticia -->
+        </div>
+        <!-- <img src="https://a.travel-assets.com/travel-assets-manager/cmct-4222/EXP-HP-Megahero-Desktop-1920x1440.jpg" alt=""> -->
+      </div>
+      <div class="container">
+        <section class="my-4 px-3">
+          <div class="card photos mb-3" style="--color: rgb(255, 215, 129);">
+            <img src="https://a.travel-assets.com/travel-assets-manager/cmct-3698/3698-US-Book_Early-Fall-STOREFRONT-fullbleed-1199x399.jpg">
+            <div class="card-body">
+              <h5 class="card-title">Card title</h5>
+              <p class="card-text">
+                With supporting text below as a natural lead-in to additional content.
+              </p>
+              <a href="#" class="btn btn-primary">Button</a>
+            </div>
+          </div>
+          <div class="card photos mb-3" style="--color: rgb(108, 159, 255);">
+            <img src="https://a.travel-assets.com/travel-assets-manager/cmct-3698/3698-US-Book_Early-Fall-STOREFRONT-fullbleed-1199x399.jpg">
+            <div class="card-body">
+              <h5 class="card-title">Card title</h5>
+              <p class="card-text">
+                With supporting text below as a natural lead-in to additional content.
+              </p>
+              <a href="#" class="btn btn-primary">Button</a>
+            </div>
+          </div>
+        </section>
+        <section class="my-4 px-3">
+          <h3 class="h3">Viajar a tu destino es ahora más fácil</h3>
+          <div class="row">
+            <div class="col-sm-12 col-md-4">
+              <div class="card mb-3">
+                <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcT_TS3cmgK8n_Vl1fDM5THKFWEmdB6rs-crJg&usqp=CAU" class="card-img-top" alt="...">
+                <div class="card-body">
+                  <h5 class="card-title">
+                    Reserva y relájate
+                  </h5>
+                  <p class="card-text">
+                    Opciones flexibles para que te preocupes más por hacer tus planes que
+                    por si las cosas cambian
+                  </p>
+                  <a class="btn btn-link btn-sm" href="#">Más información</a>
+                </div>
+              </div>
+            </div>
+            <div class="col-sm-12 col-md-4">
+              <div class="card mb-3">
+                <img class="card-img-top"
+                  src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcT_TS3cmgK8n_Vl1fDM5THKFWEmdB6rs-crJg&usqp=CAU">
+                <div class="card-body">
+                  <h5 class="card-title">
+                    Reserva y relájate
+                  </h5>
+                  <p class="card-text">
+                    Opciones flexibles para que te preocupes más por hacer tus planes que
+                    por si las cosas cambian
+                  </p>
+                  <a class="btn btn-link btn-sm" href="#">Más información</a>
+                </div>
+              </div>
+            </div>
+            <div class="col-sm-12 col-md-4">
+              <div class="card mb-3">
+                <img class="card-img-top"
+                  src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcT_TS3cmgK8n_Vl1fDM5THKFWEmdB6rs-crJg&usqp=CAU">
+                <div class="card-body">
+                  <h5 class="card-title">
+                    Ve esta lista de viaje
+                  </h5>
+                  <p class="card-text">
+                    ¿Todo en orden para tus vacaciones? Usa esta lista para asegurarte de
+                    que no haga falta nada Opciones flexibles para que te preocupes más por
+                    hacer tus planes que por si las cosas cambian
+                  </p>
+                  <a class="btn btn-link btn-sm" href="#">Más información</a>
+                </div>
+              </div>
+            </div>
+          </div>
+        </section>
+      </div>
+    </main>
+    <footer class="pt-4 mt-md-5 pt-md-5 border-top text-white bg-dark">
+      <div class="container">
+        <div class="row">
+          <div class="col-12 col-md">
+            <img src="/img/logo.png" alt="MexVax logo" width="126">
+            <small class="d-block mb-3 text-muted">&copy; 2021</small>
+          </div>
+          <div class="col-6 col-md">
+            <h5>MEXVAX</h5>
+            <ul class="list-unstyled text-small">
+              <li>Contacta con nosotros:</li>
+              <li>Teléfono: <a href="tel:018008305101">01 800 830 5101</a></li>
+              <li>E-mail: <a href="email:contacto@mexvax.com">contacto@mexvax.com</a></li>
+            </ul>
+          </div>
+          <div class="col-6 col-md">
+            <h5>Información</h5>
+            <ul class="list-unstyled text-small">
+              <li><a class="text-muted" href="/terminos.html">Termino de uso</a></li>
+              <li><a class="text-muted" href="/aviso.html">Aviso de privacidad</a></li>
+            </ul>
+          </div>
+          <div class="col-6 col-md">
+            <h5>Redes sociales</h5>
+            <ul class="list-unstyled text-small">
+              <li><a class="text-muted" href="#">Team</a></li>
+              <li><a class="text-muted" href="#">Locations</a></li>
+              <li><a class="text-muted" href="#">Privacy</a></li>
+              <li><a class="text-muted" href="#">Terms</a></li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </footer>
+    <script>
+      $(document).ready(function () {
+        $('[data-toggle="tooltip"]').tooltip()
+      });
+    </script>
+  </body>
+</html>
